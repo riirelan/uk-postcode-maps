@@ -38,7 +38,8 @@ class constants:
     workingPath       = 'n:/tmp/GBfull' #working directory for csv and image
     sourceCsvFileOrig = 'GB_full.txt'  #filename in zip from intetnet
     sourceCsvFile     = 'GB_full.csv'  #file to process into map
-    postcodeFilter    = "^RG.*"  #filter, not implemented
+    outputPng         = 'uk_py.png'
+    postcodeFilter    = "" #"^RG.*"  #filter, not implemented
     xImageSize       = 600     #output image x size
     yImageSize       = 1000    #output image y size
     xStorageSize     = 1000    #internal map representation x size
@@ -47,12 +48,13 @@ class constants:
     
     def setStatics():
         constants.inFilename = constants.workingPath + "/" + constants.sourceCsvFile
-        constants.outPngFilename = constants.workingPath + "/" + "uk.png"      
+        constants.outPngFilename = constants.workingPath + "/" + constants.outputPng
         
 
 def getSourceCsv():
     """ Read the ZIP file from the Internet to a temp file, unzip the file
         and rename the txt file to csv for clarity."""
+    print("Retrieve CSV from URL and unzip...")
     try:
         with urlopen(constants.sourceURL) as response:
             tempZip = tempfile.NamedTemporaryFile(mode='w+b', delete=False)
@@ -390,6 +392,7 @@ class mapStrct:
             
 def main():
     constants.setStatics()
+    getSourceCsv()
     f = mapStrct()
     f.readMap()
     f.grow()
