@@ -35,15 +35,15 @@ class MapException(Exception):
 
 class constants:
     sourceURL         = 'http://download.geonames.org/export/zip/GB_full.csv.zip'
-    workingPath       = 'n:/tmp/GBfull'
-    sourceCsvFileOrig = 'GB_full.txt'
-    sourceCsvFile     = 'GB_full.csv'
-    postcodeFilter    = "^RG.*"
-    xImageSize       = 600
-    yImageSize       = 1000
-    xStorageSize     = 1000
-    yStorageSize     = 2000
-    pixGrowthMax     = 20
+    workingPath       = 'n:/tmp/GBfull' #working directory for csv and image
+    sourceCsvFileOrig = 'GB_full.txt'  #filename in zip from intetnet
+    sourceCsvFile     = 'GB_full.csv'  #file to process into map
+    postcodeFilter    = "^RG.*"  #filter, not implemented
+    xImageSize       = 600     #output image x size
+    yImageSize       = 1000    #output image y size
+    xStorageSize     = 1000    #internal map representation x size
+    yStorageSize     = 2000    #internal map representation y size
+    pixGrowthMax     = 20      #maximum distance between points to grow
     
     def setStatics():
         constants.inFilename = constants.workingPath + "/" + constants.sourceCsvFile
@@ -202,6 +202,7 @@ class mapStrct:
                 else:
                     self.img.putpixel((xImg,yImg),(255,255,255))
         self.img.show()
+        self.img.save(constants.outPngFilename)
 
     def growBoundsOnce2(self, distance) -> int:
         """ perform one pass on the map struct, expanding into empty
