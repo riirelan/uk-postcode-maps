@@ -1,2 +1,2 @@
 # uk-postcode-maps
-This repo has implementations of conversion of UJK postcode geolocations to map representations
+This repo has implementations of conversion of UK postcode geolocations to map representations
